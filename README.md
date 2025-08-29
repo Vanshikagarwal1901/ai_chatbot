@@ -102,4 +102,4 @@ This project is licensed under the **MIT License**.
 
 ---
 
-✨ Vanshika, do you want me to also add a **"How to Use" section** that explains where to click for **calendar, audio toggle, font settings, and clear history** so even new users know how to use the extra features?
+
