@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Personal Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Header -->
+    <header class="app-header">
+      <h1>✨ TommyBot</h1>
+      <button id="theme-toggle" aria-label="Toggle theme">🌙</button>
+    </header>
+
+    <!-- Chat Box -->
+    <div class="chat-container" id="chat-container">
+      <div id="chat" aria-live="polite"></div>
+      <div class="bot-typing" id="bot-typing">🤖 Bot is typing<span class="dots">...</span></div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-container">
+      <input id="userMsg" type="text" placeholder="Type a message or press mic to speak..." autocomplete="off">
+      <button id="sendBtn" aria-label="Send">➤</button>
+      <button id="voiceBtn" aria-label="Voice">🎤</button>
+    </div>
+
+    <!-- Quick Actions (Calendar kept) -->
+    <div class="quick-actions">
+      <button title="Calendar">📅</button>
+      <button title="Music">🎵</button>
+      <button title="Search">🔎</button>
+      <button title="Settings">⚙️</button>
+    </div>
+  </div>
+
+  <!-- Calendar Modal (full month view) -->
+  <div id="calendarModal" class="calendar-modal hidden" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="calendar-content" role="document" aria-label="Calendar dialog">
+      <button id="closeCalendar" class="close-btn" aria-label="Close calendar">&times;</button>
+      <div class="calendar-header">
+        <button id="prevMonth" class="nav-btn" aria-label="Previous month">‹</button>
+        <div class="month-year" id="monthYear">Month Year</div>
+        <button id="nextMonth" class="nav-btn" aria-label="Next month">›</button>
+      </div>
+      <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="Calendar grid"></div>
+      <div class="calendar-footer">
+        <button id="todayBtn" class="btn small">Today</button>
+        <button id="pickBtn" class="btn small primary">Pick Date</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Music Modal -->
+  <div id="musicModal" class="music-modal hidden" role="dialog" aria-hidden="true">
+    <div class="music-content">
+      <button class="close-btn" id="closeMusic">&times;</button>
+      <h2>🎵 Mini Music Player</h2>
+      <div class="player-meta" id="nowPlaying">No track</div>
+
+      <audio id="audioPlayer" preload="metadata"></audio>
+
+      <div class="player-controls">
+        <button id="prevTrack" class="circle">⏮</button>
+        <button id="playPause" class="circle">▶️</button>
+        <button id="nextTrack" class="circle">⏭</button>
+      </div>
+
+      <div class="player-progress">
+        <input type="range" id="seekBar" min="0" max="100" value="0">
+        <div class="time-row"><span id="curTime">0:00</span><span id="durTime">0:00</span></div>
+      </div>
+
+      <div class="player-actions">
+        <label class="file-label">Add tracks
+          <input id="trackFiles" type="file" accept="audio/*" multiple>
+        </label>
+        <label class="volume-label">Vol
+          <input id="volume" type="range" min="0" max="1" step="0.01" value="0.8">
+        </label>
+        <button id="clearPlaylist" class="btn small">Clear Playlist</button>
+      </div>
+
+      <ul id="playlist" class="playlist"></ul>
+    </div>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="searchModal" class="search-modal hidden" role="dialog" aria-hidden="true">
+    <div class="search-content">
+      <button class="close-btn" id="closeSearch">&times;</button>
+      <h2>🔎 Search</h2>
+      <input id="searchInput" type="search" placeholder="Ask Tommy or search the web...">
+      <div class="search-actions">
+        <button id="searchBot" class="btn primary">Search with Bot</button>
+        <button id="searchWeb" class="btn">Open Web Search</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="settings-modal hidden" role="dialog" aria-hidden="true">
+    <div class="settings-content">
+      <button class="close-btn" id="closeSettings">&times;</button>
+      <h2>⚙️ Settings</h2>
+      <div class="setting-row">
+        <label>Dark Mode
+          <input id="settingsDark" type="checkbox">
+        </label>
+      </div>
+      <div class="setting-row">
+        <label>Enable Voice
+          <input id="settingsVoice" type="checkbox" checked>
+        </label>
+      </div>
+      <div class="setting-row">
+        <label>Font Size
+          <input id="settingsFont" type="range" min="12" max="20" value="14">
+        </label>
+      </div>
+      <div class="setting-row">
+        <button id="clearChat" class="btn danger">Clear Chat History</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
